@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.zy</groupId>
-    <artifactId>rpc</artifactId>
+    <groupId>org.zy</groupId>
+    <artifactId>RpcFramework</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>RpcFramework</name>
     <description>RpcFramework</description>
@@ -46,6 +46,16 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.42.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-x-discovery</artifactId>
+            <version>5.6.0</version>
+        </dependency>
 
     </dependencies>
     <dependencyManagement>
@@ -77,7 +87,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.zy.rpc.RpcFrameworkApplication</mainClass>
+                    <mainClass>org.zy.rpc.RpcFrameworkApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>

@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.zy</groupId>
-    <artifactId>rpc</artifactId>
+    <groupId>org.zy.rpc</groupId>
+    <artifactId>MiddleMethod</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>RpcProvider1</name>
-    <description>RpcProvider1</description>
+    <name>MiddleMethod</name>
+    <description>MiddleMethod</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,24 +16,13 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.zy</groupId>
-            <artifactId>RpcFramework</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.zy.rpc</groupId>
-            <artifactId>MiddleMethod</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -65,7 +54,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>org.zy.rpc.RpcProvider1Application</mainClass>
+                    <mainClass>org.zy.rpc.middlemethod.MiddleMethodApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>

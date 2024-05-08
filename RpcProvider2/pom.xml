@@ -24,6 +24,17 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.zy.rpc</groupId>
+            <artifactId>MiddleMethod</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.zy</groupId>
+            <artifactId>RpcFramework</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -54,7 +65,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.zy.rpc.RpcProvider2Application</mainClass>
+                    <mainClass>org.zy.rpc.RpcProvider2Application</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>
