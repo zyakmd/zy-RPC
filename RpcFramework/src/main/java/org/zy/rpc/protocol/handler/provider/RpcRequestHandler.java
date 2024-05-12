@@ -2,7 +2,7 @@ package org.zy.rpc.protocol.handler.provider;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import org.zy.rpc.ThreadPoll.ThreadPollFactory;
+import org.zy.rpc.ThreadPool.ThreadPoolFactory;
 import org.zy.rpc.common.RpcRequest;
 import org.zy.rpc.protocol.RpcProtocol;
 
@@ -22,6 +22,6 @@ public class RpcRequestHandler extends SimpleChannelInboundHandler<RpcProtocol<R
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, RpcProtocol<RpcRequest> protocol) throws Exception {
-        ThreadPollFactory.submitRequest(ctx, protocol);
+        ThreadPoolFactory.submitRequest(ctx, protocol);
     }
 }

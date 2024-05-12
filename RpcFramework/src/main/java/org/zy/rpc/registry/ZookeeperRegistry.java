@@ -63,7 +63,8 @@ public class ZookeeperRegistry implements RegistryService{
     public void unRegister(ServiceMeta serviceMeta) throws Exception {
         ServiceInstance<ServiceMeta> serviceInstance = ServiceInstance
                 .<ServiceMeta>builder()
-                .name(serviceMeta.getServiceName()) // 跟上面不一样？
+                //.name(serviceMeta.getServiceName()) // 跟上面不一样？
+                .name(CommonMethod.getServiceKey(serviceMeta.getServiceName(), serviceMeta.getServiceVersion()))
                 .address(serviceMeta.getServiceAddr())
                 .port(serviceMeta.getServicePort())
                 .payload(serviceMeta)

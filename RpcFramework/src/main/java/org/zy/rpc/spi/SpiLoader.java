@@ -96,7 +96,6 @@ public class SpiLoader {
                 }
             });
         }
-
         return objects;
     }
 
@@ -108,7 +107,7 @@ public class SpiLoader {
      */
     public void loadSpi(Class clazz) throws IOException, ClassNotFoundException {
         if (clazz == null) {
-            throw new IllegalArgumentException("class 没找到");
+            throw new IllegalArgumentException("class 不能指定为空");
         }
         ClassLoader classLoader = this.getClass().getClassLoader();
         Map<String, Class> classMap = new HashMap<>();

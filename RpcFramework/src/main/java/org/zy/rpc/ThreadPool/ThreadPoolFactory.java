@@ -1,9 +1,10 @@
-package org.zy.rpc.ThreadPoll;
+package org.zy.rpc.ThreadPool;
 
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cglib.reflect.FastClass;
+import org.springframework.cglib.reflect.FastMethod;
 import org.zy.rpc.common.CommonMethod;
 import org.zy.rpc.common.RpcRequest;
 import org.zy.rpc.common.RpcResponse;
@@ -22,9 +23,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @description: 线程池工厂
  * @date: 2024/5/7 19:09
  */
-public class ThreadPollFactory {
+public class ThreadPoolFactory {
 
-    private static Logger logger = LoggerFactory.getLogger(ThreadPollFactory.class);
+    private static Logger logger = LoggerFactory.getLogger(ThreadPoolFactory.class);
 
     private static ThreadPoolExecutor slowPoll;
 
@@ -61,7 +62,7 @@ public class ThreadPollFactory {
         startClearMonitor();
     }
 
-    private ThreadPollFactory(){}
+    private ThreadPoolFactory(){}
 
 
     public static void setRpcServiceMap(Map<String, Object> rpcMap){
@@ -145,6 +146,10 @@ public class ThreadPollFactory {
 
         FastClass fastClass = FastClass.create(serviceClass);
         int methodIndex = fastClass.getIndex(methodName, parameterTypes);
+
+        // 也可以
+        //FastMethod fastMethod = fastClass.getMethod(methodName, parameterTypes);
+        //return fastMethod.invoke(serviceBean, parameters);
 
         // 调用方法并返回结果
         return fastClass.invoke(methodIndex, serviceBean, parameters);

@@ -18,7 +18,7 @@ import java.util.LinkedHashMap;
 /**
  * @package: org.zy.rpc.protocol.serialization
  * @author: zyakmd
- * @description: JSON序列化
+ * @description: JSON序列化,，字符串传输
  * @date: 2024/5/8 19:10
  */
 public class JsonSerialization implements RpcSerialization{

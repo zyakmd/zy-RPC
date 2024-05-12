@@ -1,1 +1,2 @@
 zookeeper=org.zy.rpc.registry.ZookeeperRegistry
+redis=org.zy.rpc.registry.RedisRegistry

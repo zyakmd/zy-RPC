@@ -1,1 +1,2 @@
 json=org.zy.rpc.protocol.serialization.JsonSerialization
+hessian=org.zy.rpc.protocol.serialization.HessianSerialization

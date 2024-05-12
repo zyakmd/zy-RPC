@@ -71,5 +71,17 @@ public class RpcConsumer {
         }
     }
 
-
+    /**
+     * 维护eventLoopGroup的关闭
+     * @throws Throwable
+     */
+    @Override
+    protected void finalize() throws Throwable {
+        try{
+            eventLoopGroup.shutdownGracefully();
+            logger.info("成功释放客户端 NioEventLoopGroup 资源");
+        }finally {
+            super.finalize();
+        }
+    }
 }

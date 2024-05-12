@@ -30,7 +30,7 @@ public @interface RpcReference {
     long timeout() default 5000;
 
     /**
-     * 可选的负载均衡:consistentHash,roundRobin...
+     * 可选的负载均衡:consistentHash,roundRobin,random
      * @return
      */
     String loadBalancer() default LoadBalancerRules.RoundRobin;

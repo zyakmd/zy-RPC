@@ -1,1 +1,3 @@
 roundRobin=org.zy.rpc.router.RoundRobinLoadBalancer
+consistentHash=org.zy.rpc.router.ConsistentHashLoadBalancer
+random=org.zy.rpc.router.RandomLoadBalancer

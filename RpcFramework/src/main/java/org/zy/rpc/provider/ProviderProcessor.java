@@ -15,7 +15,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
-import org.zy.rpc.ThreadPoll.ThreadPollFactory;
+import org.zy.rpc.ThreadPool.ThreadPoolFactory;
 import org.zy.rpc.annotation.RpcService;
 import org.zy.rpc.common.CommonMethod;
 import org.zy.rpc.common.ServiceMeta;
@@ -25,6 +25,7 @@ import org.zy.rpc.protocol.coder.RpcDecoder;
 import org.zy.rpc.protocol.coder.RpcEncoder;
 import org.zy.rpc.protocol.handler.provider.FinishBackHandler;
 import org.zy.rpc.protocol.handler.provider.RpcRequestHandler;
+import org.zy.rpc.protocol.handler.provider.ServiceBeforeFilterHanlder;
 import org.zy.rpc.protocol.serialization.SerializationFactory;
 import org.zy.rpc.registry.RegistryFactory;
 import org.zy.rpc.registry.RegistryService;
@@ -86,7 +87,7 @@ public class ProviderProcessor implements EnvironmentAware, InitializingBean, Be
                             socketChannel.pipeline()    // 添加业务逻辑链，为什么每次都要en再de？
                                     .addLast(new RpcEncoder())
                                     .addLast(new RpcDecoder())
-                                    //.addLast(new ServiceBeforeFilterHanlder())
+                                    .addLast(new ServiceBeforeFilterHanlder())
                                     .addLast(new RpcRequestHandler())
                                     .addLast(new FinishBackHandler());
                                     //.addLast(new ServiceAfterFilterHandler())
@@ -137,7 +138,7 @@ public class ProviderProcessor implements EnvironmentAware, InitializingBean, Be
         RegistryFactory.init();
         LoadBalancerFactory.init();
         FilterConfig.initServiceFilter();
-        ThreadPollFactory.setRpcServiceMap(rpcServiceMap);
+        ThreadPoolFactory.setRpcServiceMap(rpcServiceMap);
     }
 
     /**

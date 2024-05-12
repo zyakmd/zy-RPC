@@ -9,6 +9,7 @@ import org.zy.rpc.common.constants.FaultTolerantRules;
 import org.zy.rpc.common.constants.LoadBalancerRules;
 import org.zy.rpc.middlemethod.TestInterface1;
 import org.zy.rpc.middlemethod.TestInterface2;
+import org.zy.rpc.router.LoadBalancer;
 
 /**
  * @package: org.zy.rpc.controller
@@ -21,40 +22,28 @@ import org.zy.rpc.middlemethod.TestInterface2;
 @Slf4j
 public class Test {
 
-    @RpcReference(timeout = 10000L, faultTolerant = FaultTolerantRules.Failover, loadBalancer = LoadBalancerRules.RoundRobin)
+    /**
+     * 指定@RpcReference的参数即可测试，如loadBalancer负载均衡，faultTolerant容错机制
+     */
+    @RpcReference(timeout = 10000L, faultTolerant = FaultTolerantRules.Failover, loadBalancer = LoadBalancerRules.Random)
     TestInterface1 interface1;
 
-    @RpcReference()
+    @RpcReference(loadBalancer = LoadBalancerRules.ConsistentHash)
     TestInterface2 interface2;
 
-    /**
-     * 轮询 http://localhost:8888/Consumer/test/1
-     * 会触发故障转移,提供方模拟异常
-     * @param word
-     * @return
-     */
     @RequestMapping("test/{word}")
     public String test(@PathVariable String word){
         interface1.test1(word);
         return "interface1.test1 ok";
     }
 
-    /**
-     * 轮询,无如何异常
-     * @param word
-     * @return
-     */
     @RequestMapping("test2/{word}")
     public String test2(@PathVariable String word){
         interface1.test2(word);
         return "interface1.test2 ok";
     }
 
-    /**
-     * 一致性哈希
-     * @param word
-     * @return
-     */
+
     @RequestMapping("test3/{word}")
     public String test3(@PathVariable String word){
         return interface2.test("interface2 ok" + word);
