@@ -440,3 +440,15 @@ return fastClass.invoke(methodIndex, serviceBean, parameters);
 用的Spring，上述模块的 `application.properties` 别忘了改成自己的 zookeeper服务器ip，虽然你用来测试下也行（假如我的服务开着的话）
 
 但假如两边注册的服务名一样不就乱套了嘛，实际应用还是得加验证才行
+
+
+
+# Acknowledgment
+
+[yu-rpc](https://github.com/liyupi/yu-rpc) 虽然后续要知识星球付费，但其中得简单案例很通俗易懂，入门看下理解RPC是则么回事
+
+[Xhy-rpc](https://gitee.com/XhyQAQ/xhy-rpc) 主要是参考~~手敲cv~~这个，配套视频对各层得讲解很清晰，跟着做也感觉学到很多，Netty这些之前都没用过，包括从接口到实现类设计得很清晰。太卷了哎，也不知道对实习能不能起到帮助。个人感觉还是充实的、收获满满，很多技术细节还要深耕就是了
+
+![](tucao.jpg)
+
+（能不能给个实习再让我深耕啊，怎么现在都要带资进组的，太离谱咯）
