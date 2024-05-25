@@ -10,6 +10,7 @@ public class RpcConsumerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RpcConsumerApplication.class, args);
+        System.getProperties().put(1,1);
     }
 
 }

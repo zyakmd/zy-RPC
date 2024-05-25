@@ -70,7 +70,7 @@ public class ThreadPoolFactory {
     }
 
     /**
-     * 清理慢请求
+     * 清理慢请求map
      */
     private static void startClearMonitor(){
         Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(()->{
@@ -105,6 +105,7 @@ public class ThreadPoolFactory {
             }finally {
                 long cost = System.currentTimeMillis() - startTime;
                 System.out.println("cost time:" + cost);
+                // 如果该调用处理时间过长，则放到慢任务Map中，由慢任务池处理
                 if(cost > 1000){
                     final AtomicInteger timeOutCount = slowTaskMap.putIfAbsent(key, new AtomicInteger(1));
                     if (timeOutCount!=null){

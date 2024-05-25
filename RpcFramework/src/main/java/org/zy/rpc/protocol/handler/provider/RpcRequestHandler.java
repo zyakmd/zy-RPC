@@ -23,5 +23,6 @@ public class RpcRequestHandler extends SimpleChannelInboundHandler<RpcProtocol<R
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, RpcProtocol<RpcRequest> protocol) throws Exception {
         ThreadPoolFactory.submitRequest(ctx, protocol);
+        ctx.fireChannelRead(protocol);
     }
 }

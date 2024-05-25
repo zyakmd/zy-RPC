@@ -5,6 +5,7 @@ import org.zy.rpc.config.RpcProperties;
 import org.zy.rpc.registry.RegistryService;
 import org.zy.rpc.spi.SpiLoader;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -47,6 +48,7 @@ public class ConsistentHashLoadBalancer implements LoadBalancer{
      */
     private TreeMap<Integer, ServiceMeta> getConsistentHashRing(List<ServiceMeta> services){
         TreeMap<Integer, ServiceMeta> ring = new TreeMap<>();
+
         for (ServiceMeta service : services) {
             for (int i = 0; i < virtualNodeReplicas; i++) {
                 ring.put(( String.join(":", service.getServiceName(), service.getServiceAddr(),

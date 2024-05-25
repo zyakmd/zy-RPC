@@ -11,6 +11,8 @@ import org.zy.rpc.middlemethod.TestInterface1;
 import org.zy.rpc.middlemethod.TestInterface2;
 import org.zy.rpc.router.LoadBalancer;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @package: org.zy.rpc.controller
  * @author: zyakmd
@@ -34,6 +36,7 @@ public class Test {
     @RequestMapping("test/{word}")
     public String test(@PathVariable String word){
         interface1.test1(word);
+        HttpSession httpSession = null;
         return "interface1.test1 ok";
     }
 

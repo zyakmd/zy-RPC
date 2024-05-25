@@ -165,6 +165,17 @@ protected void channelRead0(ChannelHandlerContext ctx, RpcProtocol<RpcResponse> 
 
 简单的使用 Netty，具体在于`socketChannel.pipeline().addLast(new xxHandler) ` 往管道添加的`handle`方法，在里面处理数据。同时 EventLoopGroup 会自行在充当消息发送方时执行encoder(继承自MessageToByteEncoder)，接收方时执行decoder(继承自ByteToMessageDecoder)
 
+### tips
+一开始出现了客户端发送成功，服务端显示调用成功，但一直没回写的问题（因为`fireChannelRead` 默认调用，channelRead0是空的，以为都是托管的）。了解了Netty的如下机制后，知道了是没显式调用`writeAndFlush` 回传。
+
+- `fireChannelRead` 入站式的操作，会由Netty自己完成，但出站操作`writeAndFlush` 要显示调用，因为Netty的handle是双向链表，添加后可以默认遍历执行入站，但是否出站，什么时候出站就不知道了。
+
+- ChannelInboundHandler 依照addLast顺序执行，ChannelOutboundHandler则是逆序执行。两者可按需求自由使用，其他方法无差别，就是顺序问题
+
+在Netty中，服务端通常在`channelRead0`方法中使用`writeAndFlush`发送响应消息给客户端。而客户端通常会使用`Channel.writeAndFlush`来发送消息，并使用`ChannelFuture`来获取异步结果。
+
+服务端通常不需要显式地等待消息发送完成，因为`writeAndFlush`是异步的。但是，如果服务端确实需要在消息发送完成后执行一些操作，也可以向`ChannelFuture`添加监听器来处理。
+
 ## 路由/负载均衡
 
 实现了三种，随机、轮询、哈希一致性，都实现 org.zy.rpc.router 的 LoadBalancer 接口统一管理
@@ -388,6 +399,17 @@ public static void submitRequest(ChannelHandlerContext ctx, RpcProtocol<RpcReque
 ```
 
 因为是在 `channel` 的 `Handle` 中调用，因此参数来自` SimpleChannelInboundHandler`的 `channelRead0` 方法（见 `RpcRequestHandler`）
+
+使用了快慢线程池
+- 线程池固定大小，如果什么任务都丢到同一个线程池中，万一正好线程执行的都是长时间的任务，那又会堆积任务了。大体分为快慢池处理吧，默认快池，处理时间高于阈值的存进map，下次就丢进慢池。
+
+同时用个单线程的延迟任务定期清理map，毕竟人可以一直倒霉，服务总不会一直慢吧
+```java
+Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(()->{  
+    slowTaskMap.clear();  
+},5,5,TimeUnit.MINUTES);
+```
+
 
 对请求体一系列解析后，通过反射执行对应的服务
 

@@ -112,7 +112,7 @@ public class RpcInvokerProxy implements InvocationHandler {
             try {
                 // 发送消息
                 rpcConsumer.sendRequest(protocol, curServiceMeta);
-                // 等待响应数据返回
+                // 等待响应数据返回，怎么获取的见 RpcResponseHandler
                 rpcResponse = future.getPromise().get(future.getTimeout(), TimeUnit.MILLISECONDS);
                 //rpcResponse = future.getPromise().get(10, TimeUnit.SECONDS);
                 // 响应有问题

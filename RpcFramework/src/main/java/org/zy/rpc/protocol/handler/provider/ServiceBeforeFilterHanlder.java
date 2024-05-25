@@ -16,7 +16,7 @@ public class ServiceBeforeFilterHanlder extends SimpleChannelInboundHandler<RpcP
     protected void channelRead0(ChannelHandlerContext ctx, RpcProtocol<RpcRequest> protocol) throws Exception {
         // 可以做Filter之类的操作
         // ...
-        // 传给下个处理器，不显示调用后面收不到
-        ctx.fireChannelRead(protocol);
+        // 传给下个处理器，会默认调用
+        //ctx.fireChannelRead(protocol);
     }
 }
